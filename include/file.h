@@ -104,8 +104,7 @@ namespace kath
         auto WriteByte_nb(Bytes &bytes) -> int
         {
             ssize_t write_len = 0;
-            do
-            {
+            do {
                 write_len = write(fd_, bytes.data_.data() + bytes.pos_, bytes.Size() - bytes.pos_);
             } while (write_len < 0 && errno == EINTR);
             if (write_len < 0)
@@ -129,21 +128,22 @@ namespace kath
             ssize_t read_len = 0;
             bytes.data_.resize(bytes.Size() + len);
 
-            do
-            {
+            do {
                 read_len = read(fd_, bytes.data_.data() + last_size, len);
             } while (read_len < 0 && errno == EINTR);
 
-            if(read_len >0 ){
+            if (read_len > 0)
+            {
                 bytes.data_.resize(last_size + read_len);
                 return 0;
             }
 
             bytes.data_.resize(last_size);
-            if(read_len == 0) {
+            if (read_len == 0)
+            {
                 return 2;
             }
-            if (read_len < 0 &&errno == EAGAIN)
+            if (read_len < 0 && errno == EAGAIN)
             {
                 return -1;
             }
