@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/msg.h
+cstdio
+-
+cstdlib
+-
+
+/home/ubuntu/桌面/Kedis/Kedis/src/server/server.cpp
+iostream
+-
+cstdlib
+-
+cstddef
+-
+msg.h
+/home/ubuntu/桌面/Kedis/Kedis/src/server/msg.h
+
