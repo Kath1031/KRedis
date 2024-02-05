@@ -4,6 +4,7 @@
 
 #include "msg.h"
 #include "bytes.h"
+#include "file.h"
 [[nodiscard]] bool func() {
     return true;
 }

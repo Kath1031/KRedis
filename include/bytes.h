@@ -8,7 +8,7 @@
 #include <cstring>
 
 #include "public.h"
-#include "msg.h"
+
 namespace kath
 {
 

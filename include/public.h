@@ -3,4 +3,6 @@
 
 #include <cassert>
 
+#include "msg.h"
+
 #endif
