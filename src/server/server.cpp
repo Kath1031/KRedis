@@ -3,10 +3,15 @@
 #include <cstddef>
 
 #include "msg.h"
+#include "bytes.h"
 [[nodiscard]] bool func() {
     return true;
 }
 
 int main(){
     Msg("abc");
+    kath::Bytes bytes;
+    bytes.AppendStr("abc");
+    std::cout<<bytes<<std::endl;
+
 }

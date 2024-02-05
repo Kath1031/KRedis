@@ -6,13 +6,33 @@
 
 #IncludeRegexTransform: 
 
+../include/bytes.h
+cstddef
+-
+vector
+-
+iostream
+-
+string
+-
+cstring
+-
+public.h
+../include/public.h
+msg.h
+../include/msg.h
+
 ../include/msg.h
 cstdio
 -
 cstdlib
 -
 
-/home/ubuntu/桌面/Kedis/Kedis/src/server/server.cpp
+../include/public.h
+cassert
+-
+
+/home/ubuntu/桌面/Kedis/KRedis/src/server/server.cpp
 iostream
 -
 cstdlib
@@ -20,5 +40,7 @@ cstdlib
 cstddef
 -
 msg.h
-/home/ubuntu/桌面/Kedis/Kedis/src/server/msg.h
+/home/ubuntu/桌面/Kedis/KRedis/src/server/msg.h
+bytes.h
+/home/ubuntu/桌面/Kedis/KRedis/src/server/bytes.h
 

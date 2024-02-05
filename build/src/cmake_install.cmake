@@ -1,4 +1,4 @@
-# Install script for directory: /home/ubuntu/桌面/Kedis/Kedis/src
+# Install script for directory: /home/ubuntu/桌面/Kedis/KRedis/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,6 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/ubuntu/桌面/Kedis/Kedis/build/src/server/cmake_install.cmake")
+  include("/home/ubuntu/桌面/Kedis/KRedis/build/src/server/cmake_install.cmake")
 endif()
 
