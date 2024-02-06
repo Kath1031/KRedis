@@ -5,6 +5,8 @@
 #include "msg.h"
 #include "bytes.h"
 #include "file.h"
+
+#include "client.h"
 [[nodiscard]] bool func() {
     return true;
 }

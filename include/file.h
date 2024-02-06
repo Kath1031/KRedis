@@ -29,7 +29,7 @@ namespace kath
         }
         errno = errno_backup;
     }
-
+    //虽说是File，但目前主要实现的都是为socket_fd服务
     class File
     {
     private:
