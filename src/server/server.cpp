@@ -5,6 +5,7 @@
 #include "msg.h"
 #include "bytes.h"
 #include "file.h"
+#include "hashtable.h"
 
 #include "client.h"
 [[nodiscard]] bool func() {
