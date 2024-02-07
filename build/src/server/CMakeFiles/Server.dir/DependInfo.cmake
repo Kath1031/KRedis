@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ubuntu/桌面/Kedis/KRedis/src/server/server.cpp" "/home/ubuntu/桌面/Kedis/KRedis/build/src/server/CMakeFiles/Server.dir/server.cpp.o"
+  "/home/ubuntu/桌面/work/KRedis/src/server/server.cpp" "/home/ubuntu/桌面/work/KRedis/build/src/server/CMakeFiles/Server.dir/server.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

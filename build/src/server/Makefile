@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/桌面/Kedis/KRedis
+CMAKE_SOURCE_DIR = /home/ubuntu/桌面/work/KRedis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/桌面/Kedis/KRedis/build
+CMAKE_BINARY_DIR = /home/ubuntu/桌面/work/KRedis/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/桌面/Kedis/KRedis/build/CMakeFiles /home/ubuntu/桌面/Kedis/KRedis/build/src/server/CMakeFiles/progress.marks
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/桌面/Kedis/KRedis/build/CMakeFiles 0
+	cd /home/ubuntu/桌面/work/KRedis/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/桌面/work/KRedis/build/CMakeFiles /home/ubuntu/桌面/work/KRedis/build/src/server/CMakeFiles/progress.marks
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/桌面/work/KRedis/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/clean
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/preinstall
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/preinstall
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ubuntu/桌面/work/KRedis/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/server/CMakeFiles/Server.dir/rule:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/CMakeFiles/Server.dir/rule
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f CMakeFiles/Makefile2 src/server/CMakeFiles/Server.dir/rule
 .PHONY : src/server/CMakeFiles/Server.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ Server: src/server/CMakeFiles/Server.dir/rule
 
 # fast build rule for target.
 Server/fast:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f src/server/CMakeFiles/Server.dir/build.make src/server/CMakeFiles/Server.dir/build
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f src/server/CMakeFiles/Server.dir/build.make src/server/CMakeFiles/Server.dir/build
 .PHONY : Server/fast
 
 server.o: server.cpp.o
@@ -131,7 +131,7 @@ server.o: server.cpp.o
 
 # target to build an object file
 server.cpp.o:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f src/server/CMakeFiles/Server.dir/build.make src/server/CMakeFiles/Server.dir/server.cpp.o
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f src/server/CMakeFiles/Server.dir/build.make src/server/CMakeFiles/Server.dir/server.cpp.o
 .PHONY : server.cpp.o
 
 server.i: server.cpp.i
@@ -140,7 +140,7 @@ server.i: server.cpp.i
 
 # target to preprocess a source file
 server.cpp.i:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f src/server/CMakeFiles/Server.dir/build.make src/server/CMakeFiles/Server.dir/server.cpp.i
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f src/server/CMakeFiles/Server.dir/build.make src/server/CMakeFiles/Server.dir/server.cpp.i
 .PHONY : server.cpp.i
 
 server.s: server.cpp.s
@@ -149,7 +149,7 @@ server.s: server.cpp.s
 
 # target to generate assembly for a file
 server.cpp.s:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(MAKE) -f src/server/CMakeFiles/Server.dir/build.make src/server/CMakeFiles/Server.dir/server.cpp.s
+	cd /home/ubuntu/桌面/work/KRedis/build && $(MAKE) -f src/server/CMakeFiles/Server.dir/build.make src/server/CMakeFiles/Server.dir/server.cpp.s
 .PHONY : server.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/ubuntu/桌面/Kedis/KRedis/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ubuntu/桌面/work/KRedis/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

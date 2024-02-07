@@ -49,6 +49,14 @@ bytes.h
 ../include/bytes.h
 
 ../include/hashtable.h
+vector
+-
+iostream
+-
+functional
+-
+optional
+-
 public.h
 ../include/public.h
 
@@ -68,7 +76,7 @@ memory
 msg.h
 ../include/msg.h
 
-/home/ubuntu/桌面/Kedis/KRedis/src/server/server.cpp
+/home/ubuntu/桌面/work/KRedis/src/server/server.cpp
 iostream
 -
 cstdlib
@@ -76,13 +84,13 @@ cstdlib
 cstddef
 -
 msg.h
-/home/ubuntu/桌面/Kedis/KRedis/src/server/msg.h
+/home/ubuntu/桌面/work/KRedis/src/server/msg.h
 bytes.h
-/home/ubuntu/桌面/Kedis/KRedis/src/server/bytes.h
+/home/ubuntu/桌面/work/KRedis/src/server/bytes.h
 file.h
-/home/ubuntu/桌面/Kedis/KRedis/src/server/file.h
+/home/ubuntu/桌面/work/KRedis/src/server/file.h
 hashtable.h
-/home/ubuntu/桌面/Kedis/KRedis/src/server/hashtable.h
+/home/ubuntu/桌面/work/KRedis/src/server/hashtable.h
 client.h
-/home/ubuntu/桌面/Kedis/KRedis/src/server/client.h
+/home/ubuntu/桌面/work/KRedis/src/server/client.h
 

@@ -1,7 +1,7 @@
-/home/ubuntu/桌面/Kedis/KRedis/build/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/桌面/Kedis/KRedis/build/CMakeFiles/edit_cache.dir
-/home/ubuntu/桌面/Kedis/KRedis/build/src/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/桌面/Kedis/KRedis/build/src/CMakeFiles/edit_cache.dir
-/home/ubuntu/桌面/Kedis/KRedis/build/src/server/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/桌面/Kedis/KRedis/build/src/server/CMakeFiles/edit_cache.dir
-/home/ubuntu/桌面/Kedis/KRedis/build/src/server/CMakeFiles/Server.dir
+/home/ubuntu/桌面/work/KRedis/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/桌面/work/KRedis/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/桌面/work/KRedis/build/src/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/桌面/work/KRedis/build/src/CMakeFiles/edit_cache.dir
+/home/ubuntu/桌面/work/KRedis/build/src/server/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/桌面/work/KRedis/build/src/server/CMakeFiles/edit_cache.dir
+/home/ubuntu/桌面/work/KRedis/build/src/server/CMakeFiles/Server.dir

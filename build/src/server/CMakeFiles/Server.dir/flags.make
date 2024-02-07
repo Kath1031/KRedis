@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++17
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ubuntu/桌面/Kedis/KRedis/include 
+CXX_INCLUDES = -I/home/ubuntu/桌面/work/KRedis/include 
 
