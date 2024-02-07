@@ -6,6 +6,7 @@
 #include "bytes.h"
 #include "file.h"
 #include "hashtable.h"
+#include "avl.h"
 
 #include "client.h"
 [[nodiscard]] bool func() {

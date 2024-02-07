@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+../include/avl.h
+public.h
+../include/public.h
+
 ../include/bytes.h
 cstddef
 -
@@ -91,6 +95,8 @@ file.h
 /home/ubuntu/桌面/work/KRedis/src/server/file.h
 hashtable.h
 /home/ubuntu/桌面/work/KRedis/src/server/hashtable.h
+avl.h
+/home/ubuntu/桌面/work/KRedis/src/server/avl.h
 client.h
 /home/ubuntu/桌面/work/KRedis/src/server/client.h
 

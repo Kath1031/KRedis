@@ -57,7 +57,7 @@ namespace kath
 
         // 返回key的上一个节点
         // 如果不存在上一个节点则返回空指针
-        auto LookupPre(HNodePtr key, NodeCmp cmp) const -> HNodePtr
+        auto LookupPre(HNodePtr key, NodeCmp cmp) -> HNodePtr
         {
             size_t index = GetIndex(key->hcode_);
             auto pre_node = table_[index];
@@ -69,8 +69,8 @@ namespace kath
             }
             return nullptr;
         }
-
-        auto Lookup(HNodePtr key, NodeCmp cmp) const -> HNodePtr
+        //单纯用来查找的
+        auto Lookup(HNodePtr key, NodeCmp cmp) -> HNodePtr
         {
             size_t index = GetIndex(key->hcode_);
             auto cur_node = table_[index];
@@ -150,43 +150,43 @@ namespace kath
     class HMap
     {
     private:
-        HTab h1{HASH_TABLE_INIT_SIZE}, h2{HASH_TABLE_INIT_SIZE};
+        HTab ht1_{HASH_TABLE_INIT_SIZE}, ht2_{HASH_TABLE_INIT_SIZE};
         size_t resizing_pos{0};
 
     public:
         HMap() = default;
-        auto Size() const -> size_t { return h1.size_ + h2.size_; }
+        auto Size() const -> size_t { return ht1_.size_ + ht2_.size_; }
 
         auto ResizingHlep() -> void
         {
-            if (!h2.size_)
+            if (!ht2_.size_)
             {
                 return;
             }
             size_t nwork = 0;
-            while (nwork < K_RESIZING_WORK && h2.size_ != 0)
+            while (nwork < K_RESIZING_WORK && ht2_.size_ != 0)
             {
-                if (h2.table_[resizing_pos] == nullptr)
+                if (ht2_.table_[resizing_pos] == nullptr)
                 {
                     ++resizing_pos;
                     continue;
                 }
                 ++nwork;
-                h1.Insert(h2.DetachFront(resizing_pos));
+                ht1_.Insert(ht2_.DetachFront(resizing_pos));
             }
         }
         auto Resizing() -> void
         {
-            assert(h2.size_ == 0);
-            h2 = std::move(h1);
-            h1 = std::move(h2.size_ * 2);
+            assert(ht2_.size_ == 0);
+            ht2_ = std::move(ht1_);
+            ht1_ = std::move(ht2_.size_ * 2);
             resizing_pos = 0;
         }
         auto Insert(HNodePtr node) -> void
         {
-            h1.Insert(node);
+            ht1_.Insert(node);
 
-            if (h1.CheckLoadFactor())
+            if (ht1_.CheckLoadFactor())
             {
                 Resizing();
             }
@@ -195,27 +195,27 @@ namespace kath
         auto Loockup(HNodePtr key, NodeCmp cmp) -> HNodePtr
         {
             ResizingHlep();
-            auto res = h1.Lookup(key, cmp);
+            auto res = ht1_.Lookup(key, cmp);
             if (res == nullptr)
-                res = h2.Lookup(key, cmp);
+                res = ht2_.Lookup(key, cmp);
             return res;
         }
         auto Pop(HNodePtr key, NodeCmp cmp) -> HNodePtr
         {
-            if(h1.Lookup(key,cmp)!=nullptr) {
-                return h1.Detach(key,cmp);
+            if(ht1_.Lookup(key,cmp)!=nullptr) {
+                return ht1_.Detach(key,cmp);
             }
-            return h2.Detach(key,cmp);
+            return ht2_.Detach(key,cmp);
         }
         auto Scan(NodeScan node_scan, void *extra) -> void
         {
-            h1.Scan(node_scan, extra);
-            h2.Scan(node_scan, extra);
+            ht1_.Scan(node_scan, extra);
+            ht2_.Scan(node_scan, extra);
         }
         auto Dispose(NodeDispose node_dispose) -> void
         {
-            h1.Dispose(node_dispose);
-            h2.Dispose(node_dispose);
+            ht1_.Dispose(node_dispose);
+            ht2_.Dispose(node_dispose);
         }
     };
 } // namespace kath
