@@ -36,10 +36,10 @@ namespace kath
             size_ = 1 + Size(left_) + Size(right_);
         }
 
-        //返回node是当前节点的左节点还是右节点
+        // 返回node是当前节点的左节点还是右节点
         auto From(AVLNodePtr node) -> AVLNodePtr &
         {
-            if(node == this->left_)
+            if (node == this->left_)
                 return left_;
             return right_;
         }
@@ -47,9 +47,6 @@ namespace kath
 
     class AVL
     {
-    private:
-        AVLNodePtr root_;
-
     public:
         /*
         左旋样例
@@ -120,20 +117,72 @@ namespace kath
                 node->Update();
                 uint32_t l = AVLNode::Depth(node->left_);
                 uint32_t r = AVLNode::Depth(node->right_);
-                auto p =node->parent_.lock();
-                auto node_backup=node;
-                if(l+2==r){
+                auto p = node->parent_.lock();
+                auto node_backup = node;
+                if (l + 2 == r)
+                {
                     node = FixRight(node);
-                } else if(l==r+2){
-                    node=FixLeft(node);
                 }
-                if(p==nullptr){
+                else if (l == r + 2)
+                {
+                    node = FixLeft(node);
+                }
+                if (p == nullptr)
+                {
                     return node;
                 }
-                p->From(node_backup)=node;
+                p->From(node_backup) = node;
                 node = p;
             }
         }
+
+        static auto Delete(AVLNodePtr node) -> AVLNodePtr
+        {
+            if (node->right_ == nullptr)
+            {
+                AVLNodePtr parent = node->parent_.lock();
+                if (node->left_ != nullptr)
+                {
+                    node->left_->parent_ = parent;
+                }
+                if (parent != nullptr)
+                {
+                    ((parent->left_ == node) ? parent->left_ : parent->right_) = node->left_;
+                    return Fix(parent);
+                }
+                return node->left_;
+            }
+            else
+            {
+                AVLNodePtr victim = node->right_;
+                while (victim->left_ != nullptr)
+                {
+                    victim = victim->left_;
+                }
+                AVLNodePtr root = Delete(victim);
+
+                *victim = *node;
+                if (victim->left_ != nullptr)
+                {
+                    victim->left_->parent_ = victim;
+                }
+                if (victim->right_ != nullptr)
+                {
+                    victim->right_->parent_ = victim;
+                }
+
+                if (AVLNodePtr parent = node->parent_.lock())
+                {
+                    ((parent->left_ == node) ? parent->left_ : parent->right_) = victim;
+                    return Fix(parent);
+                }
+                return victim;
+            }
+        }
+    };
+
+    class AVLContainer
+    {
     };
 
 }
