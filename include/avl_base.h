@@ -30,6 +30,7 @@ namespace kath
 
     public:
         AVLNode() = default;
+        virtual ~AVLNode() = default;
         static auto Depth(AVLNodePtr node) -> uint32_t { return (node == nullptr) ? 0 : node->depth_; }
         static auto Size(AVLNodePtr node) -> uint32_t { return (node == nullptr) ? 0 : node->size_; }
         auto Update() -> void

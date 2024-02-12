@@ -23,7 +23,7 @@ namespace kath
         AVLNodePtr root_;
         static auto GetVal(AVLNodePtr node) -> uint32_t
         {
-            return static_cast<AVLData *>(node.get())->val_;
+            return dynamic_cast<AVLData *>(node.get())->val_;
         }
         auto Insert(uint32_t val) -> void
         {
