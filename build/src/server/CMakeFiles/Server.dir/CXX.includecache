@@ -7,6 +7,10 @@
 #IncludeRegexTransform: 
 
 ../include/avl.h
+avl_base.h
+../include/avl_base.h
+
+../include/avl_base.h
 public.h
 ../include/public.h
 
