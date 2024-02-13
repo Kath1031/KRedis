@@ -52,6 +52,7 @@ namespace kath
 
         auto StartConnectionIO()
         {
+            // todo idle_node
             idle_start_ = GetMonotonicUsec();
         }
 
