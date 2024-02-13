@@ -41,6 +41,8 @@ namespace kath
 
         auto reset() -> void { pos_ = 0; }
 
+        [[nodiscard]] bool IsReadEnd() const { return pos_ == data_.size(); }
+
         friend auto operator<<(std::ostream &ost, const Bytes &bytes) -> std::ostream &
         {
             ost << std::hex << "[";
