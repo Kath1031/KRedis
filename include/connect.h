@@ -50,10 +50,13 @@ namespace kath
 
         auto IsEnd() const -> bool { return state_ == ConnState::STATE_END; }
 
-        auto StartConnectionIO()
+        auto StartConnectionIO(DList *head)
         {
             // todo idle_node
             idle_start_ = GetMonotonicUsec();
+            idle_node_.Detach();
+            head->InsertFront(&idle_node_);
+            ConnectionIO();
         }
 
         auto ConnectionIO() -> void
@@ -75,8 +78,7 @@ namespace kath
         auto StateRequest() -> void
         {
             while (TryFillBuffer())
-            {
-            }
+                ;
         }
 
         auto TryFillBuffer() -> bool

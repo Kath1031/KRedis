@@ -46,6 +46,30 @@ public.h
 file.h
 ../include/file.h
 
+../include/connect.h
+poll.h
+-
+vector
+-
+string
+-
+public.h
+../include/public.h
+file.h
+../include/file.h
+list.h
+../include/list.h
+excute.h
+../include/excute.h
+
+../include/excute.h
+vector
+-
+string
+-
+bytes.h
+../include/bytes.h
+
 ../include/file.h
 errno.h
 -
@@ -68,6 +92,8 @@ optional
 public.h
 ../include/public.h
 
+../include/list.h
+
 ../include/msg.h
 cstdio
 -
@@ -83,6 +109,22 @@ memory
 -
 msg.h
 ../include/msg.h
+
+../include/server.h
+arpa/inet.h
+-
+netinet/ip.h
+-
+sys/socket.h
+-
+unordered_map
+-
+public.h
+../include/public.h
+file.h
+../include/file.h
+connect.h
+../include/connect.h
 
 /home/ubuntu/桌面/work/KRedis/src/server/server.cpp
 iostream
@@ -101,6 +143,10 @@ hashtable.h
 /home/ubuntu/桌面/work/KRedis/src/server/hashtable.h
 avl.h
 /home/ubuntu/桌面/work/KRedis/src/server/avl.h
+connect.h
+/home/ubuntu/桌面/work/KRedis/src/server/connect.h
+server.h
+/home/ubuntu/桌面/work/KRedis/src/server/server.h
 client.h
 /home/ubuntu/桌面/work/KRedis/src/server/client.h
 

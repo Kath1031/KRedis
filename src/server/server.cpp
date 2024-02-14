@@ -7,6 +7,9 @@
 #include "file.h"
 #include "hashtable.h"
 #include "avl.h"
+#include "connect.h"
+
+#include "server.h"
 
 #include "client.h"
 [[nodiscard]] bool func() {

@@ -5,9 +5,13 @@ src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/avl.h
 src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/avl_base.h
 src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/bytes.h
 src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/client.h
+src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/connect.h
+src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/excute.h
 src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/file.h
 src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/hashtable.h
+src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/list.h
 src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/msg.h
 src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/public.h
+src/server/CMakeFiles/Server.dir/server.cpp.o: ../include/server.h
 src/server/CMakeFiles/Server.dir/server.cpp.o: ../src/server/server.cpp
 
