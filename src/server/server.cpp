@@ -10,6 +10,7 @@
 #include "connect.h"
 
 #include "server.h"
+#include "heap.h"
 
 #include "client.h"
 [[nodiscard]] bool func() {
