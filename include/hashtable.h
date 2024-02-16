@@ -12,6 +12,7 @@ namespace kath
 {
     struct HNode;
     using HNodePtr = std::shared_ptr<HNode>;
+    using HNodeWPtr = std::weak_ptr<HNode>;
 
     using NodeCmp = std::function<bool(HNodePtr, HNodePtr)>; // 并不保证Cmp的参数非空指针
     using NodeScan = std::function<void(HNodePtr, void *)>;
@@ -218,6 +219,13 @@ namespace kath
             ht2_.Dispose(node_dispose);
         }
     };
+    uint64_t string_hash(const std::string &str) {
+        uint64_t hash = 0;
+        for(auto &c:str) {
+            hash = hash*257 + static_cast<uint8_t>(c);
+        }
+        return hash;
+    }
 } // namespace kath
 
 #endif

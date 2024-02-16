@@ -19,7 +19,13 @@ namespace kath
         DOU,
         ARR,
     };
-
+    enum class CmdErr
+    {
+        Err_UNKNOWN = 1,
+        ERR_2Big,
+        ERR_TYPE,
+        ERR_ARG,
+    };
     enum class ConnState
     {
         STATE_REQ = 0,

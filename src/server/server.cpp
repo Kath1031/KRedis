@@ -14,6 +14,7 @@
 #include "rand.h"
 
 #include "client.h"
+#include "exec.h"
 [[nodiscard]] bool func() {
     return true;
 }
