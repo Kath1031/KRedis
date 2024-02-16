@@ -11,6 +11,7 @@
 
 #include "server.h"
 #include "heap.h"
+#include "rand.h"
 
 #include "client.h"
 [[nodiscard]] bool func() {
