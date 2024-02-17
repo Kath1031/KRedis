@@ -8,7 +8,7 @@
 #include "public.h"
 #include "file.h"
 #include "list.h"
-#include "excute.h"
+#include "exec.h"
 
 namespace kath
 {
@@ -140,7 +140,7 @@ namespace kath
 
             // 数据从Bytes中拷贝进cmd
             Bytes out;
-            interpret(cmd, out);
+            Interpret(cmd, out);
 
             wbuf_.AppendNum(out.Size(), 4);
             wbuf_.AppendBytes(std::move(out));

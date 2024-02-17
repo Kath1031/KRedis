@@ -13,7 +13,7 @@ https://en.wikipedia.org/wiki/AVL_tree
 
 #include "public.h"
 
-namespace kath
+namespace kath::avl
 {
     class AVLNode;
     using AVLNodePtr = std::shared_ptr<AVLNode>;
@@ -181,7 +181,34 @@ namespace kath
                 }
                 return victim;
             }
-        }
+        } // Delete function
+        static auto Offset(AVLNodePtr node, int64_t offset) -> AVLNodePtr
+        {
+            int64_t pos = 0;
+            while (offset != pos)
+            {
+                if (pos < offset && pos + AVLNode::Size(node->right_) >= offset)
+                {
+                    node = node->right_;
+                    pos += AVLNode::Size(node->left_) + 1;
+                }
+                else if (pos > offset && pos - AVLNode::Size(node->left_) <= offset)
+                {
+                    node = node->left_;
+                    pos -= AVLNode::Size(node->right_) + 1;
+                } else {
+                    AVLNodePtr parent = node->parent_.lock();
+                    if(!parent) {return std::make_shared<AVLNode>(nullptr);}
+                    if(parent->right_ == node) {
+                        pos -= AVLNode::Size(node->left_)+1;
+                    } else {
+                        pos += AVLNode::Size(node->right_) +1;
+                    }
+                    node = parent;
+                }
+            }
+            return node;
+        } // Offset function
     };
 }
 

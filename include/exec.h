@@ -87,7 +87,7 @@ namespace kath
                 : HNode(string_hash(key)), type_(EntryType::T_STR), key_(key), heap_index_(0)
             {
             }
-            Entry(std::string &key, const std::string &value)
+            Entry(const std::string &key, const std::string &value)
                 : HNode(string_hash(key)), type_(EntryType::T_STR), key_(key), val_(value), heap_index_(0)
             {
             }
@@ -139,7 +139,7 @@ namespace kath
             }
             else
             {
-                HNodePtr new_entry = std::make_shared<Entry> (key,value);
+                HNodePtr new_entry = std::make_shared<Entry>(key, value);
                 m_map.Insert(new_entry);
             }
         }
@@ -204,7 +204,22 @@ namespace kath
             OutErr(out, code, msg);
         }
     }
-    auto interpret(Cmd &cmd, Bytes &out) -> void
+    auto ParseReq(Bytes &data, std::vector<std::string> &cmd) -> bool
+    {
+        if (data.IsReadEnd())
+            return false;
+
+        auto cmd_num = data.GetNum<size_t>(4);
+
+        while (cmd_num--)
+        {
+            auto cmd_len = data.GetNum<size_t>(4);
+            cmd.emplace_back(data.GetStrView(cmd_len));
+        }
+
+        return true;
+    }
+    auto Interpret(Cmd &cmd, Bytes &out) -> void
     {
         if (cmd.size() == 1 && CmdEq(cmd[0], "key"))
         {
