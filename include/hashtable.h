@@ -12,7 +12,6 @@ namespace kath
 {
     struct HNode;
     using HNodePtr = std::shared_ptr<HNode>;
-    using HNodeWPtr = std::weak_ptr<HNode>;
 
     using NodeCmp = std::function<bool(HNodePtr, HNodePtr)>; // 并不保证Cmp的参数非空指针
     using NodeScan = std::function<void(HNodePtr, void *)>;
@@ -28,6 +27,7 @@ namespace kath
         size_t hcode_; // cached hash value
         HNode() = delete;
         HNode(size_t hcode) : next_(nullptr), hcode_(hcode) {}
+        virtual ~HNode() = default;
     };
     class HTab
     {

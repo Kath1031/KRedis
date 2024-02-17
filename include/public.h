@@ -45,6 +45,14 @@ namespace kath
         clock_gettime(CLOCK_MONOTONIC, &tv);
         return static_cast<uint64_t>(tv.tv_sec * 1000000 + tv.tv_nsec / 1000);
     }
+
+    template <typename derive,typename base>
+    std::shared_ptr<
+        typename std::enable_if<(!std::is_same<base, derive>::value) && (std::is_base_of<base, derive>::value), derive>::type>
+    dyn_cast(std::shared_ptr<base> ptr)
+    {
+        return std::static_pointer_cast<derive>(ptr);
+    }
 }
 
 #endif
