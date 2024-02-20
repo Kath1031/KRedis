@@ -6,7 +6,7 @@
 #include "bytes.h"
 #include "file.h"
 #include "hashtable.h"
-#include "avl.h"
+#include "avl_base.h"
 #include "connect.h"
 
 #include "server.h"
@@ -15,6 +15,7 @@
 
 #include "client.h"
 #include "exec.h"
+#include "zset.h"
 [[nodiscard]] bool func() {
     return true;
 }

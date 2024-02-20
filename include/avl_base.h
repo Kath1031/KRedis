@@ -18,7 +18,6 @@ namespace kath::avl
     class AVLNode;
     using AVLNodePtr = std::shared_ptr<AVLNode>;
     using AVLNodeWPtr = std::weak_ptr<AVLNode>;
-
     class AVLNode
     {
     public:
@@ -196,13 +195,21 @@ namespace kath::avl
                 {
                     node = node->left_;
                     pos -= AVLNode::Size(node->right_) + 1;
-                } else {
+                }
+                else
+                {
                     AVLNodePtr parent = node->parent_.lock();
-                    if(!parent) {return std::make_shared<AVLNode>(nullptr);}
-                    if(parent->right_ == node) {
-                        pos -= AVLNode::Size(node->left_)+1;
-                    } else {
-                        pos += AVLNode::Size(node->right_) +1;
+                    if (!parent)
+                    {
+                        return AVLNodePtr();
+                    }
+                    if (parent->right_ == node)
+                    {
+                        pos -= AVLNode::Size(node->left_) + 1;
+                    }
+                    else
+                    {
+                        pos += AVLNode::Size(node->right_) + 1;
                     }
                     node = parent;
                 }

@@ -114,7 +114,7 @@ namespace kath
         auto Get(const std::string &key) -> std::optional<std::string>
         {
             HNodePtr node = std::make_shared<Entry>(key);
-            HNodePtr target = m_map.Loockup(node, EntryEq);
+            HNodePtr target = m_map.Lookup(node, EntryEq);
             if (!target)
                 return {};
             std::shared_ptr<Entry> entry = dyn_cast<Entry, HNode>(target);
@@ -127,7 +127,7 @@ namespace kath
         auto Set(const std::string &key, const std::string &value) -> void
         {
             HNodePtr tmp_entry = std::make_shared<Entry>(key);
-            HNodePtr target_node = m_map.Loockup(tmp_entry, EntryEq);
+            HNodePtr target_node = m_map.Lookup(tmp_entry, EntryEq);
             if (target_node != nullptr)
             {
                 EntryPtr target_entry = dyn_cast<Entry, HNode>(target_node);

@@ -193,7 +193,7 @@ namespace kath
             }
             ResizingHlep();
         }
-        auto Loockup(HNodePtr key, NodeCmp cmp) -> HNodePtr
+        auto Lookup(HNodePtr key, NodeCmp cmp) -> HNodePtr
         {
             ResizingHlep();
             auto res = ht1_.Lookup(key, cmp);
