@@ -4,8 +4,21 @@
 #include "public.h"
 #include "bytes.h"
 #include "hashtable.h"
+#include "zset.h"
 #include "heap.h"
 // 序列化 serialization
+inline auto str2dbl(const std::string &str, double &out) -> bool
+{
+    char *endp = nullptr;
+    out = strtod(str.c_str(), &endp);
+    return endp == str.c_str() + str.size() && !std::isnan(out);
+}
+static auto str2int(const std::string &str, int64_t &out) -> bool
+{
+    char *endp = nullptr;
+    out = strtoll(str.c_str(), &endp, 10);
+    return endp == str.c_str() + str.size();
+}
 namespace kath
 {
     using Cmd = std::vector<std::string>;
@@ -79,17 +92,38 @@ namespace kath
             EntryType type_;
             std::string key_;
             std::string val_;
-            // std::shared_ptr<ZSet> zset_;
+            std::shared_ptr<ZSet> zset_;
             size_t heap_index_;
             Entry() = default;
-            ~Entry() = default;
+            ~Entry() { SetTTL(-1); };
             Entry(const std::string &key)
-                : HNode(string_hash(key)), type_(EntryType::T_STR), key_(key), heap_index_(0)
+                : HNode(string_hash(key)), type_(EntryType::T_STR), key_(key), zset_{nullptr}, heap_index_(0)
             {
             }
             Entry(const std::string &key, const std::string &value)
-                : HNode(string_hash(key)), type_(EntryType::T_STR), key_(key), val_(value), heap_index_(0)
+                : HNode(string_hash(key)), type_(EntryType::T_STR),
+                  key_(key), val_(value), zset_{nullptr}, heap_index_(0)
             {
+            }
+            auto SetTTL(int64_t ttl_ms) -> void
+            {
+                if (ttl_ms < 0 && heap_index_ != 0)
+                {
+                    size_t pos = heap_index_;
+                }
+                else if (ttl_ms >= 0)
+                {
+                    size_t pos = heap_index_;
+                    uint64_t now_time = GetMonotonicUsec() + ttl_ms * 1000;
+                    if (pos == 0)
+                    {
+                        m_heap.Push(now_time, &heap_index_);
+                    }
+                    else
+                    {
+                        m_heap.Set(pos, now_time);
+                    }
+                }
             }
         };
 
@@ -152,6 +186,19 @@ namespace kath
                 return true;
             }
             return false;
+        }
+
+        auto GetZsetEntry(const std::string &key) -> EntryPtr
+        {
+            EntryPtr entry_ptr = std::make_shared<Entry>(key);
+            HNodePtr hnode = m_map.Lookup(entry_ptr, EntryEq);
+            if (hnode == nullptr)
+                return nullptr;
+
+            EntryPtr ent = dyn_cast<Entry, HNode>(hnode);
+            if (ent->type_ == EntryType::T_STR)
+                return nullptr;
+            return ent;
         }
 
     } // namespace core
@@ -219,6 +266,104 @@ namespace kath
 
         return true;
     }
+    auto DoZAdd(Cmd &cmd, Bytes &out) -> void
+    {
+        double score = 0;
+        if (!str2dbl(cmd[2], score))
+        {
+            return OutErr(out, CmdErr::ERR_ARG, "expect fp number");
+        }
+
+        core::EntryPtr key = std::make_shared<core::Entry>(cmd[1]);
+        HNodePtr hnode = core::m_map.Lookup(key, core::EntryEq);
+        core::EntryPtr ent = nullptr;
+        if (hnode == nullptr)
+        {
+            ent = std::make_shared<core::Entry>(std::move(key->key_), "", key->hcode_);
+            ent->type_ = core::EntryType::T_ZSET;
+            ent->zset_ = std::make_shared<ZSet>();
+            core::m_map.Insert(ent);
+        }
+        else
+        {
+            ent = dyn_cast<core::Entry, HNode>(hnode);
+            if (ent->type_ != core::EntryType::T_ZSET)
+            {
+                return OutErr(out, CmdErr::ERR_TYPE, "expect zset");
+            }
+        }
+        const std::string &name = cmd[3];
+        auto ok = ent->zset_->Add(name, score);
+        OutInt(out, static_cast<int64_t>(ok));
+    }
+    auto DoZRem(Cmd &cmd, Bytes &out) -> void
+    {
+        core::EntryPtr ent = core::GetZsetEntry(cmd[1]);
+        if (!ent)
+        {
+            OutNil(out);
+            return;
+        }
+        const std::string &name = cmd[2];
+        auto ok = ent->zset_->Pop(name);
+        OutInt(out, (int64_t)ok);
+    }
+    auto DoZScore(Cmd &cmd, Bytes &out) -> void
+    {
+        core::EntryPtr entry_ptr = core::GetZsetEntry(cmd[1]);
+        if (!entry_ptr)
+        {
+            OutNil(out);
+            return;
+        }
+        const std::string &name = cmd[2];
+        auto res = entry_ptr->zset_->Find(name);
+        if (res.has_value())
+        {
+            OutDouble(out, res.value());
+        }
+        else
+        {
+            OutNil(out);
+        }
+    }
+    auto DoZQuery(const Cmd &cmd, Bytes &out) -> void
+    {
+        double score = 0;
+        if (!str2dbl(cmd[2], score))
+        {
+            return OutErr(out, CmdErr::ERR_ARG, "expect fp number");
+        }
+        const std::string &name = cmd[3];
+        int64_t offset = 0;
+        int64_t limit = 0;
+        if(!str2int(cmd[4],offset)) {
+            return OutErr(out,CmdErr::ERR_ARG,"expect int");
+        }
+        if(!str2int(cmd[5],limit)) {
+            return OutErr(out,CmdErr::ERR_ARG,"expect int");
+        }
+
+        // get the zset
+        core::EntryPtr ent_ptr = core::GetZsetEntry(cmd[1]);
+        if (!ent_ptr) {
+            OutErr(out,CmdErr::ERR_TYPE, "expect zset");
+            return ;
+        }
+        if(limit &1) limit++;
+        limit >>=1;
+        auto ite = ent_ptr->zset_->Query(name,score,offset,limit);
+
+        uint32_t n =0;
+        Bytes buff;
+        for (auto sam :ite) {
+            OutStr(buff,sam.name_);
+            OutDouble(buff,sam.score_);
+            n+=2;
+        }
+        OutArr(out,n);
+        out.AppendBytes(std::move(buff));
+    }
     auto Interpret(Cmd &cmd, Bytes &out) -> void
     {
         if (cmd.size() == 1 && CmdEq(cmd[0], "key"))
@@ -236,6 +381,22 @@ namespace kath
         else if (cmd.size() == 3 && CmdEq(cmd[0], "set"))
         {
             DoSet(cmd, out);
+        }
+        else if (cmd.size() == 4 && CmdEq(cmd[0], "zadd"))
+        {
+            DoZAdd(cmd, out);
+        }
+        else if (cmd.size() == 3 && CmdEq(cmd[0], "zrem"))
+        {
+            DoZRem(cmd, out);
+        }
+        else if (cmd.size() == 3 && CmdEq(cmd[0], "zscore"))
+        {
+            DoZScore(cmd, out);
+        }
+        else if (cmd.size() == 6 && CmdEq(cmd[0], "zquery"))
+        {
+            DoZQuery(cmd, out);
         }
     }
 }
